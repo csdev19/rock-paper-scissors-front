@@ -10,9 +10,7 @@ const handOptions = {
   scissors: 'Scissors',
 };
 
-exports.handOptions = handOptions;
-
-exports.handKeyOptions = [
+const handKeyOptions = [
   {
     id: handOptions.rock,
     key: 'r',
@@ -29,7 +27,7 @@ exports.handKeyOptions = [
 
 const GameLayout: NextPage = () => {
   const [response, setResponse] = useState('');
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(socketIOClient(ENDPOINT));
   const [socketConnected, setSocketConnected] = useState(false);
   const [hand, setHand] = useState('');
   const [userForm, setUserForm] = useState({
@@ -42,7 +40,9 @@ const GameLayout: NextPage = () => {
     setSocket(socketIOClient(ENDPOINT));
 
     // CLEAN UP THE EFFECT
-    return () => (socket ? socket.disconnect() : null);
+    return () => {
+      socket ? socket.disconnect() : null;
+    };
   }, []);
 
   // subscribe to the socket event
@@ -82,8 +82,8 @@ const GameLayout: NextPage = () => {
       <button onClick={handleEmmit} type="button">
         Emite
       </button>
+      type="text"
       <input
-        type="text"
         name="user"
         id="user"
         onChange={(e) => setUserForm({ user: e.target.value })}

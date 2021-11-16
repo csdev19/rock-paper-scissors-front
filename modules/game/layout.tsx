@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
@@ -30,9 +31,7 @@ const GameLayout: NextPage = () => {
   const [socket, setSocket] = useState(socketIOClient(ENDPOINT));
   const [socketConnected, setSocketConnected] = useState(false);
   const [hand, setHand] = useState('');
-  const [userForm, setUserForm] = useState({
-    user: '',
-  });
+  const [user, setUser] = useState('');
   const room = 909;
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const GameLayout: NextPage = () => {
     // const socket = socketIOClient(ENDPOINT);
     socket.emit('chosedHands', {
       room,
-      user: userForm.user,
+      user: user,
       hand,
     });
   };
@@ -82,54 +81,56 @@ const GameLayout: NextPage = () => {
       <button onClick={handleEmmit} type="button">
         Emite
       </button>
-      type="text"
       <input
+        type="text"
+        className={clsx(
+          'px-2',
+          'py-1',
+          'placeholder-gray-400',
+          'text-gray-600',
+          'relative',
+          'bg-white bg-white',
+          'rounded',
+          'text-sm',
+          'border border-gray-400',
+          'outline-none',
+          'focus:outline-none focus:ring',
+          'w-full',
+        )}
         name="user"
         id="user"
-        onChange={(e) => setUserForm({ user: e.target.value })}
+        onChange={(e) => setUser(e.target.value)}
       />
-      <div>{`El usuario usado es: ${userForm.user}`}</div>
+      <div>{`El usuario usado es: ${user}`}</div>
       <div>{`En el room: ${room}`}</div>
-      <div className="card-container">
+      <div className="grid grid-cols-3">
         <div
           role="button"
-          className="card-item"
-          onClick={(e) => handleSelectHand(handOptions.rock)}
+          className=""
+          onClick={() => handleSelectHand(handOptions.rock)}
         >
           <figure>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/rock.png`}
-              alt=""
-              className="w-100"
-            />
+            <img src={'/assets/rock.png'} alt="" className="w-full" />
           </figure>
           <h2 className="text-center">Rock</h2>
         </div>
         <div
           role="button"
           className="card-item"
-          onClick={(e) => handleSelectHand(handOptions.paper)}
+          onClick={() => handleSelectHand(handOptions.paper)}
         >
           <figure>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/paper.png`}
-              alt=""
-              className="w-100"
-            />
+            <img src={'/assets/paper.png'} alt="" className="w-full" />
           </figure>
           <h2 className="text-center">Paper</h2>
         </div>
         <div
           role="button"
           className="card-item"
-          onClick={(e) => handleSelectHand(handOptions.scissors)}
+          onClick={() => handleSelectHand(handOptions.scissors)}
         >
           <figure>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/scissors.png`}
-              alt=""
-              className="w-100"
-            />
+            <img src={'/assets/scissors.png'} alt="" className="w-full" />
           </figure>
           <h2 className="text-center">Scissors</h2>
         </div>

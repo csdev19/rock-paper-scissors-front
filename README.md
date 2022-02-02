@@ -3,6 +3,10 @@
 This is my boilerplate of an aplication using [Tailwind CSS](https://tailwindcss.com/) and [TypeScript](https://www.typescriptlang.org/). And enforcing the code style with [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/).
 
 
+## Guides
+
+- https://www.tutorialspoint.com/socket.io/socket.io_broadcasting.htm
+
 ## Features
 
   - [x] [Tailwind CSS](https://tailwindcss.com/)
